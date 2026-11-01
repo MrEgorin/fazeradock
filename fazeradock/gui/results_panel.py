@@ -1,3 +1,14 @@
+import sys
+
+def _open_path_crossplatform(path: str) -> None:
+    if not os.path.exists(path):
+        return
+    if sys.platform == "win32":
+        os.startfile(path)
+    elif sys.platform == "darwin":
+        subprocess.Popen(["open", path])
+    else:
+        subprocess.Popen(["xdg-open", path])
 """
 FazeraDock – Docking Results & Visualization Panel
 ===================================================
@@ -82,7 +93,7 @@ class _ImagePreviewDialog(QDialog):
 
         btn_box = QHBoxLayout()
         btn_open = QPushButton("Open with Default Viewer")
-        btn_open.clicked.connect(lambda: os.startfile(image_path) if os.path.exists(image_path) else None)
+        btn_open.clicked.connect(lambda: _open_path_crossplatform(image_path))
         btn_close = QPushButton("Close")
         btn_close.clicked.connect(self.accept)
         btn_box.addWidget(btn_open)
@@ -449,7 +460,7 @@ class ResultsPanel(QWidget):
             )
             rep_path = generate_results_report(dock_res, rec_pdb, out_dir)
             if os.path.exists(rep_path):
-                os.startfile(rep_path)
+                _open_path_crossplatform(rep_path)
             else:
                 QMessageBox.information(self, "Report", f"Report generated at:\n{rep_path}")
         except Exception as exc:
@@ -496,6 +507,6 @@ class ResultsPanel(QWidget):
                 results_dir = pose_dir
 
         if os.path.exists(results_dir):
-            subprocess.Popen(f'explorer "{results_dir}"')
+            _open_path_crossplatform(results_dir)
         else:
             QMessageBox.warning(self, "Folder Not Found", f"Directory does not exist:\n{results_dir}")

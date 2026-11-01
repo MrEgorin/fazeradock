@@ -9,7 +9,9 @@ from __future__ import annotations
 
 import logging
 import re
+import shutil
 import subprocess
+import sys
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -19,8 +21,36 @@ from .grid_manager import GridBox, grid_to_vina_args
 
 logger = logging.getLogger(__name__)
 
-# Path to the AutoDock Vina binary
-VINA_PATH: str = r"c:\docs\FAZENA\fazeradock\bin\vina.exe"
+
+def get_vina_path() -> str:
+    """Locate the AutoDock Vina binary across Windows, Linux, and macOS."""
+    found = shutil.which("vina") or shutil.which("vina.exe")
+    if found:
+        return found
+
+    app_bin = Path(__file__).resolve().parent.parent / "bin"
+    candidates = [
+        app_bin / "vina.exe",
+        app_bin / "vina",
+    ]
+    for c in candidates:
+        if c.is_file():
+            return str(c)
+
+    system_candidates = [
+        "/usr/local/bin/vina",
+        "/usr/bin/vina",
+        "/opt/homebrew/bin/vina",
+        r"C:\Program Files (x86)\The Scripps Research Institute\Vina\vina.exe",
+    ]
+    for sc in system_candidates:
+        if Path(sc).is_file():
+            return sc
+
+    return str(app_bin / ("vina.exe" if sys.platform == "win32" else "vina"))
+
+
+VINA_PATH: str = get_vina_path()
 
 # Regex to capture affinity lines from Vina output:
 # e.g.  "   1     -7.5      0.000      0.000"
@@ -129,7 +159,7 @@ def run_docking(
     log_path = out_dir / f"{receptor_stem}_{ligand_stem}_log.txt"
 
     # Resolve engine
-    vina_exe = VINA_PATH
+    vina_exe = get_vina_path()
     engine_label = "vina"
     if config.use_gpu:
         # GPU-accelerated Vina would use a different binary.

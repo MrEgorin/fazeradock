@@ -58,6 +58,9 @@ def _find_obabel() -> str:
     for candidate in (
         r"C:\Program Files\OpenBabel-3.1.1\obabel.exe",
         r"C:\openbabel-3.1.1\obabel.exe",
+        "/usr/bin/obabel",
+        "/usr/local/bin/obabel",
+        "/opt/homebrew/bin/obabel",
     ):
         if Path(candidate).is_file():
             return candidate

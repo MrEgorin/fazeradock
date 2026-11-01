@@ -109,26 +109,34 @@ cd fazeradock
 
 ### 3. Install Dependencies
 
-**Windows (using PyMOL's Python):**
+**Windows (One-click):**
 ```batch
 install.bat
-```
-
-**Manual installation:**
-```bash
-pip install numpy matplotlib PyQt5
-```
-
-### 4. Run FazeraDock
-
-```batch
 run_fazeradock.bat
 ```
 
-Or directly:
+**Linux (Ubuntu / Debian):**
 ```bash
-python run_fazeradock.py
+sudo apt update
+sudo apt install autodock-vina openbabel pymol python3-pyqt5 python3-pip
+pip install -r requirements.txt
+python3 run_fazeradock.py
 ```
+
+**macOS (Homebrew):**
+```bash
+brew install open-babel pymol
+pip install -r requirements.txt
+python3 run_fazeradock.py
+```
+
+### Supported Operating Systems
+
+| OS | Status | Notes |
+|----|--------|-------|
+| **Windows 10 / 11** | ✅ Fully Supported | Bundled Vina 1.2.7 included, 1-click batch launcher |
+| **Linux (Ubuntu/Debian/Arch/Fedora)** | ✅ Fully Supported | Native AutoDock Vina, OpenBabel, and PyMOL |
+| **macOS (Intel & Apple Silicon M1-M4)** | ✅ Fully Supported | Native Vina and OpenBabel via Homebrew |
 
 ## Quick Start
 

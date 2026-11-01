@@ -40,7 +40,29 @@ class VisualizationResult:
 # Internal helpers
 # ---------------------------------------------------------------------------
 
-_PYMOL_EXE = r"C:\pymol\PyMOLWin.exe"
+import shutil
+import sys
+
+_PYMOL_CACHED = None
+def get_pymol_exe() -> str:
+    global _PYMOL_CACHED
+    if _PYMOL_CACHED: return _PYMOL_CACHED
+
+    found = shutil.which("pymol") or shutil.which("PyMOLWin.exe")
+    if found:
+        return found
+    candidates = [
+        r"C:\pymol\PyMOLWin.exe",
+        "/Applications/PyMOL.app/Contents/MacOS/PyMOL",
+        "/usr/bin/pymol",
+        "/usr/local/bin/pymol",
+    ]
+    for c in candidates:
+        if os.path.exists(c):
+            return c
+    return "pymol"
+
+get_pymol_exe() = get_pymol_exe()
 
 # Colour palette keyed by interaction_type coming from classify_interactions
 _INTERACTION_COLORS: dict[str, str] = {
@@ -460,7 +482,7 @@ def launch_pymol_interactive(
     logger.info("Launching PyMOL GUI with script: %s", pml_path)
 
     # Launch PyMOL in the background
-    pymol_exe = _PYMOL_EXE
+    pymol_exe = get_pymol_exe()
     if not os.path.isfile(pymol_exe):
         # Fallback: assume pymol is on PATH
         pymol_exe = "pymol"

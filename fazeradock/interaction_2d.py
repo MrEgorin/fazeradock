@@ -187,7 +187,8 @@ def generate_2d_interaction_diagram(
         min_dist = closest_dist
         for item in classified:
             if item.get("chain") == chain and str(item.get("resseq")) == str(resseq):
-                types_found.add(item.get("interaction_type", "other"))
+                itype = item.get("interaction_type") or item.get("type") or "other"
+                types_found.add(itype)
                 d = item.get("distance", 999.0)
                 if d < min_dist:
                     min_dist = d
@@ -503,18 +504,28 @@ def _generate_2d_pillow(
 
     draw.text((cx, 40), title, fill="#212121", font=font_title, anchor="mt")
 
-    # Match residues to interactions
+    # Match residues to interactions with priority (H-bond > Ionic > Pi-stacking > Hydrophobic > Other)
+    priority_order = {"hydrogen_bond": 0, "ionic": 1, "pi_stacking": 2, "hydrophobic": 3, "other": 4}
+
     res_type_map: dict[tuple[str, int], dict] = {}
     for item in classified:
         key = (item["chain"], item["resseq"])
-        if key not in res_type_map or item.get("distance", 99.0) < res_type_map[key].get("distance", 99.0):
-            res_type_map[key] = item
+        itype = item.get("interaction_type") or item.get("type") or "other"
+        cand = dict(item)
+        cand["_canonical_type"] = itype
+        if key not in res_type_map:
+            res_type_map[key] = cand
+        else:
+            old_p = priority_order.get(res_type_map[key].get("_canonical_type", "other"), 99)
+            new_p = priority_order.get(itype, 99)
+            if new_p < old_p or (new_p == old_p and item.get("distance", 99.0) < res_type_map[key].get("distance", 99.0)):
+                res_type_map[key] = cand
 
     ring_residues = []
     for r in residues:
         k = (r["chain"], r["resseq"])
         c_info = res_type_map.get(k, {})
-        itype = c_info.get("interaction_type", "other")
+        itype = c_info.get("_canonical_type") or c_info.get("interaction_type") or c_info.get("type") or "other"
         dist = c_info.get("distance", r.get("closest_distance", 3.5))
         ring_residues.append({
             "chain": r["chain"],

@@ -1,3 +1,14 @@
+import sys
+
+def _open_path_crossplatform(path: str) -> None:
+    if not os.path.exists(path):
+        return
+    if sys.platform == "win32":
+        os.startfile(path)
+    elif sys.platform == "darwin":
+        subprocess.Popen(["open", path])
+    else:
+        subprocess.Popen(["xdg-open", path])
 """
 FazeraDock – Main Application Window
 ====================================
@@ -334,16 +345,16 @@ class MainWindow(QMainWindow):
     def _open_results_dir(self) -> None:
         results_dir = os.path.abspath(os.path.join(str(APP_DIR), "results"))
         os.makedirs(results_dir, exist_ok=True)
-        subprocess.Popen(f'explorer "{results_dir}"')
+        _open_path_crossplatform(results_dir)
 
     def _open_projects_dir(self) -> None:
         os.makedirs(str(PROJECTS_DIR), exist_ok=True)
-        subprocess.Popen(f'explorer "{str(PROJECTS_DIR)}"')
+        _open_path_crossplatform(str(PROJECTS_DIR))
 
     def _show_user_guide(self) -> None:
         guide_path = os.path.join(str(APP_DIR), "docs", "user_guide.md")
         if os.path.exists(guide_path):
-            os.startfile(guide_path)
+            _open_path_crossplatform(guide_path)
         else:
             QMessageBox.information(self, "User Guide", "User Guide is located in docs/user_guide.md.")
 

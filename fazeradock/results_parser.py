@@ -347,21 +347,31 @@ def classify_interactions(
             lig_elem = la["element"]
             res_name = ra["res_name"]
 
-            # Hydrogen bond: N or O atoms within 3.5 Å
+            # Hydrogen bond: N or O (or F) atoms within 3.5 Å
             if d <= 3.5 and rec_elem in HB_ELEMENTS and lig_elem in HB_ELEMENTS:
                 interaction_type = "hydrogen_bond"
+
+            # Ionic / Salt bridge: charged residue heteroatom with ligand polar heteroatom within 4.0 Å
+            elif (
+                d <= 4.0
+                and res_name in CHARGED_RESIDUES
+                and rec_elem in ("N", "O")
+                and lig_elem in ("N", "O", "S", "F", "CL", "BR")
+            ):
+                interaction_type = "ionic"
+
+            # Pi-stacking / Pi-interaction: aromatic sidechain ring atoms within 5.0 Å
+            elif (
+                d <= 5.0
+                and res_name in AROMATIC_RESIDUES
+                and any(ra["atom_name"].startswith(p) for p in ("CG", "CD", "CE", "CZ", "CH"))
+                and lig_elem in ("C", "N")
+            ):
+                interaction_type = "pi_stacking"
 
             # Hydrophobic: C–C within 4.5 Å
             elif d <= 4.5 and rec_elem == HYDROPHOBIC_ELEMENT and lig_elem == HYDROPHOBIC_ELEMENT:
                 interaction_type = "hydrophobic"
-
-            # Ionic: charged residue within 4.0 Å
-            elif d <= 4.0 and res_name in CHARGED_RESIDUES:
-                interaction_type = "ionic"
-
-            # Pi-stacking: aromatic residue within 5.5 Å
-            elif d <= 5.5 and res_name in AROMATIC_RESIDUES:
-                interaction_type = "pi_stacking"
 
             # Other contact within general cutoff
             elif d <= cutoff:
@@ -370,6 +380,7 @@ def classify_interactions(
             if interaction_type:
                 interactions.append({
                     "type": interaction_type,
+                    "interaction_type": interaction_type,
                     "chain": ra["chain_id"],
                     "resname": res_name,
                     "resseq": ra["res_seq"],
