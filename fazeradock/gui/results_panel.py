@@ -1,14 +1,3 @@
-import sys
-
-def _open_path_crossplatform(path: str) -> None:
-    if not os.path.exists(path):
-        return
-    if sys.platform == "win32":
-        os.startfile(path)
-    elif sys.platform == "darwin":
-        subprocess.Popen(["open", path])
-    else:
-        subprocess.Popen(["xdg-open", path])
 """
 FazeraDock – Docking Results & Visualization Panel
 ===================================================
@@ -60,6 +49,17 @@ from ..results_parser import (
 )
 from ..screening import ScreeningResult
 from ..visualization_3d import launch_pymol_interactive, visualize_docking_result
+
+
+def _open_path_crossplatform(path: str) -> None:
+    if not os.path.exists(path):
+        return
+    if sys.platform == "win32":
+        os.startfile(path)
+    elif sys.platform == "darwin":
+        subprocess.Popen(["open", path])
+    else:
+        subprocess.Popen(["xdg-open", path])
 
 
 # ---------------------------------------------------------------------------

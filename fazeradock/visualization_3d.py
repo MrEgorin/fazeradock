@@ -62,7 +62,6 @@ def get_pymol_exe() -> str:
             return c
     return "pymol"
 
-get_pymol_exe() = get_pymol_exe()
 
 # Colour palette keyed by interaction_type coming from classify_interactions
 _INTERACTION_COLORS: dict[str, str] = {

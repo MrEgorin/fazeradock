@@ -1,14 +1,3 @@
-import sys
-
-def _open_path_crossplatform(path: str) -> None:
-    if not os.path.exists(path):
-        return
-    if sys.platform == "win32":
-        os.startfile(path)
-    elif sys.platform == "darwin":
-        subprocess.Popen(["open", path])
-    else:
-        subprocess.Popen(["xdg-open", path])
 """
 FazeraDock – Main Application Window
 ====================================
@@ -50,6 +39,17 @@ from .project_manager import ProjectManagerDialog
 from .protein_panel import ProteinPanel
 from .results_panel import ResultsPanel
 from .styles import MAIN_STYLESHEET
+
+
+def _open_path_crossplatform(path: str) -> None:
+    if not os.path.exists(path):
+        return
+    if sys.platform == "win32":
+        os.startfile(path)
+    elif sys.platform == "darwin":
+        subprocess.Popen(["open", path])
+    else:
+        subprocess.Popen(["xdg-open", path])
 
 
 class MainWindow(QMainWindow):
