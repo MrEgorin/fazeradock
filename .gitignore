@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Distribution
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Results (user-generated, not tracked)
+results/*/
+
+# Project files (user-specific)
+projects/*.json
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# PyMOL sessions (large binary files)
+*.pse
