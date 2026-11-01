@@ -10,7 +10,7 @@ setup(
     description="Era of Accessible, User-Friendly Molecular Docking",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/YourUsername/fazeradock",
+    url="https://github.com/MrEgorin/fazeradock",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

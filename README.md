@@ -2,6 +2,7 @@
   <h1 align="center">🧬 FazeraDock</h1>
   <p align="center"><strong>Era of Accessible, User-Friendly Molecular Docking</strong></p>
   <p align="center">
+    <a href="https://github.com/MrEgorin/fazeradock">Repository</a> •
     <a href="#features">Features</a> •
     <a href="#installation">Installation</a> •
     <a href="#quick-start">Quick Start</a> •
@@ -100,7 +101,7 @@ Ensure you have the following installed:
 ### 2. Clone the Repository
 
 ```bash
-git clone https://github.com/YourUsername/fazeradock.git
+git clone https://github.com/MrEgorin/fazeradock.git
 cd fazeradock
 ```
 
@@ -277,7 +278,7 @@ If you use FazeraDock in your research, please cite:
   title = {FazeraDock: Accessible, User-Friendly Molecular Docking},
   author = {FAZENA Team},
   year = {2026},
-  url = {https://github.com/YourUsername/fazeradock}
+  url = {https://github.com/MrEgorin/fazeradock}
 }
 ```
 
@@ -303,7 +304,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 - [AutoDock Vina](https://github.com/ccsb-scripps/AutoDock-Vina) — Molecular docking engine
 - [Open Babel](https://openbabel.org/) — Chemical format conversion
 - [PyMOL](https://pymol.org/) — Molecular visualization (open-source)
-- [FAZENA](https://github.com/YourUsername/fazena) — Parent project
+- [FAZENA](https://github.com/MrEgorin/fazena) — Parent project
 
 ---
 
