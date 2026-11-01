@@ -99,13 +99,14 @@ class PrepResult:
 # ------------------------------------------------------------------
 
 def prepare_protein(
-    input_pdb: str | Path,
-    output_dir: str | Path,
+    input_pdb: str | Path | None = None,
+    output_dir: Optional[str | Path] = None,
     chain: Optional[str] = None,
     remove_water: bool = True,
     remove_het: bool = True,
     keep_ligands: Optional[list[str]] = None,
     add_hydrogens: bool = True,
+    **kwargs,
 ) -> PrepResult:
     """Run the full protein preparation pipeline.
 
@@ -121,9 +122,9 @@ def prepare_protein(
     Parameters
     ----------
     input_pdb:
-        Path to the input PDB file.
+        Path to the input PDB file (can also be passed as pdb_path).
     output_dir:
-        Directory where intermediate and output files are written.
+        Directory where intermediate and output files are written. Defaults to prepared/ in input dir.
     chain:
         If set, only this chain is retained.
     remove_water:
@@ -139,7 +140,14 @@ def prepare_protein(
     -------
     PrepResult
     """
+    if input_pdb is None:
+        input_pdb = kwargs.get("pdb_path")
+    if not input_pdb:
+        raise ValueError("input_pdb (or pdb_path) must be provided.")
+
     input_pdb = Path(input_pdb)
+    if output_dir is None:
+        output_dir = input_pdb.parent / "prepared"
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     result = PrepResult()

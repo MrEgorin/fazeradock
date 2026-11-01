@@ -98,7 +98,7 @@ def _get_formula_obabel(input_file: Path) -> str:
 
 def prepare_ligand(
     input_file: str | Path,
-    output_dir: str | Path,
+    output_dir: Optional[str | Path] = None,
     add_hydrogens: bool = True,
     gen_3d: bool = False,
 ) -> LigandPrepResult:
@@ -115,7 +115,7 @@ def prepare_ligand(
     input_file:
         Path to the input ligand file.
     output_dir:
-        Directory for the output PDBQT.
+        Directory for the output PDBQT (optional, defaults to prepared_ligands/ in input dir).
     add_hydrogens:
         Add hydrogens before conversion.
     gen_3d:
@@ -126,6 +126,8 @@ def prepare_ligand(
     LigandPrepResult
     """
     input_file = Path(input_file)
+    if output_dir is None:
+        output_dir = input_file.parent / "prepared_ligands"
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     result = LigandPrepResult()
@@ -185,7 +187,7 @@ def prepare_ligand(
 
 def prepare_ligand_batch(
     input_files: list[str | Path],
-    output_dir: str | Path,
+    output_dir: Optional[str | Path] = None,
     add_hydrogens: bool = True,
     gen_3d: bool = False,
 ) -> list[LigandPrepResult]:
@@ -196,7 +198,7 @@ def prepare_ligand_batch(
     input_files:
         List of paths to ligand files.
     output_dir:
-        Output directory for all PDBQT files.
+        Output directory for all PDBQT files (optional).
     add_hydrogens:
         Add hydrogens to each ligand.
     gen_3d:
@@ -206,6 +208,13 @@ def prepare_ligand_batch(
     -------
     list[LigandPrepResult]
     """
+    if not input_files:
+        return []
+    if output_dir is None:
+        output_dir = Path(input_files[0]).parent / "prepared_ligands"
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
     results: list[LigandPrepResult] = []
     for i, f in enumerate(input_files, 1):
         logger.info("Preparing ligand %d/%d: %s", i, len(input_files), f)
@@ -216,8 +225,9 @@ def prepare_ligand_batch(
 
 def prepare_ligand_library(
     sdf_file: str | Path,
-    output_dir: str | Path,
+    output_dir: Optional[str | Path] = None,
     add_hydrogens: bool = True,
+    gen_3d: bool = False,
 ) -> list[LigandPrepResult]:
     """Split a multi-molecule SDF file and prepare each molecule individually.
 
@@ -226,15 +236,19 @@ def prepare_ligand_library(
     sdf_file:
         Path to the multi-molecule SDF file.
     output_dir:
-        Directory for the individual PDBQT files.
+        Directory for the individual PDBQT files (optional).
     add_hydrogens:
         Add hydrogens to each ligand.
+    gen_3d:
+        Force 3D coordinate generation.
 
     Returns
     -------
     list[LigandPrepResult]
     """
     sdf_file = Path(sdf_file)
+    if output_dir is None:
+        output_dir = sdf_file.parent / "prepared_ligands"
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 

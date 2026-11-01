@@ -69,7 +69,7 @@ class _ProteinPrepWorker(QThread):
             self.log.emit(f"  Chain        : {chain or 'All'}")
 
             result = prepare_protein(
-                pdb_path=self.pdb_path,
+                input_pdb=self.pdb_path,
                 remove_water=self.remove_water,
                 remove_het=self.remove_het,
                 add_hydrogens=self.add_h,
