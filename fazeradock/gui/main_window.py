@@ -46,7 +46,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self, parent: Optional[QWidget] = None) -> None:
         super().__init__(parent)
-        self.setWindowTitle("FazeraDock – Era of Accessible Molecular Docking | FAZENA")
+        self.setWindowTitle("FazeraDock v1.0.0 – Era of Accessible Molecular Docking | by Yehor Franchuk (@MrEgorin) & FAZENA")
         self.resize(1180, 800)
         self.setMinimumSize(960, 680)
 
@@ -153,11 +153,17 @@ class MainWindow(QMainWindow):
         self.setStatusBar(sb)
 
         gpu_desc = self._gpu_info.gpu_name
-        cuda_desc = "CUDA Enabled" if self._gpu_info.cuda_available else "CPU Multi-threading Mode"
+        cuda_desc = "CUDA Enabled" if self._gpu_info.cuda_available else "CPU Mode"
         engine_desc = "AutoDock Vina 1.2.7"
 
-        status_text = f"Ready | Engine: {engine_desc} | Hardware: {gpu_desc} ({cuda_desc}) | FAZENA Project"
+        status_text = f"Ready | Engine: {engine_desc} | {gpu_desc} ({cuda_desc})"
         sb.showMessage(status_text)
+
+        # Author credits in subtle small letters at the bottom right
+        from PyQt5.QtWidgets import QLabel
+        lbl_credit = QLabel("FazeraDock by Yehor Franchuk (@MrEgorin) | FAZENA  ")
+        lbl_credit.setStyleSheet("font-size: 11px; color: #78909C; font-style: italic;")
+        sb.addPermanentWidget(lbl_credit)
 
     def _connect_signals(self) -> None:
         # Protein prepared -> notify grid panel and docking panel
@@ -347,12 +353,14 @@ class MainWindow(QMainWindow):
             "About FazeraDock",
             "<h2>🧬 FazeraDock v1.0.0</h2>"
             "<p><b>Era of Accessible, User-Friendly Molecular Docking</b></p>"
-            "<p>Part of the <b>FAZENA</b> project.</p>"
+            "<p><b>Lead Developer:</b> Yehor Franchuk (<a href='https://github.com/MrEgorin'>@MrEgorin</a>)</p>"
+            "<p><b>Project:</b> FAZENA</p>"
             "<hr>"
             "<p>Built on top of <b>AutoDock Vina 1.2.7</b>, <b>Open Babel</b>, and <b>PyMOL Open-Source</b>.</p>"
             "<p>Features automated protein & ligand preparation, cross-docking screening, "
             "interactive PyMOL visualization with contact highlights, and 2D interaction diagrams.</p>"
-            "<p>© 2026 FAZENA Team. Released under the MIT License.</p>",
+            "<p><b>Repository:</b> <a href='https://github.com/MrEgorin/fazeradock'>https://github.com/MrEgorin/fazeradock</a></p>"
+            "<p>© 2026 Yehor Franchuk / FAZENA. Released under the MIT License.</p>",
         )
 
 

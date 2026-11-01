@@ -1,3 +1,4 @@
+# Author: Yehor Franchuk (@MrEgorin) | FAZENA Project
 """Docking execution engine for FazeraDock.
 
 Wraps AutoDock Vina to run docking jobs, capturing output in real time,

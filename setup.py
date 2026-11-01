@@ -6,8 +6,9 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name="fazeradock",
     version="1.0.0",
-    author="FAZENA Team",
-    description="Era of Accessible, User-Friendly Molecular Docking",
+    author="Yehor Franchuk (MrEgorin)",
+    author_email="egorushkasuper12@gmail.com",
+    description="FazeraDock - Era of Accessible, User-Friendly Molecular Docking with FAZENA",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/MrEgorin/fazeradock",

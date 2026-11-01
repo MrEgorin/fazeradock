@@ -17,6 +17,8 @@
 
 Part of the **FAZENA** project — making computational chemistry accessible to everyone.
 
+Author: **Yehor Franchuk** ([@MrEgorin](https://github.com/MrEgorin)) | **FAZENA**
+
 ## Features
 
 ### 🎯 Molecular Docking
@@ -276,7 +278,7 @@ If you use FazeraDock in your research, please cite:
 ```bibtex
 @software{fazeradock2026,
   title = {FazeraDock: Accessible, User-Friendly Molecular Docking},
-  author = {FAZENA Team},
+  author = {Franchuk, Yehor and FAZENA},
   year = {2026},
   url = {https://github.com/MrEgorin/fazeradock}
 }
@@ -309,5 +311,5 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 ---
 
 <p align="center">
-  Made with ❤️ by the FAZENA Team
+  Made with ❤️ by Yehor Franchuk (@MrEgorin) & FAZENA Team
 </p>

@@ -1,3 +1,4 @@
+# Author: Yehor Franchuk (@MrEgorin) | FAZENA Project
 """GPU detection module for FazeraDock.
 
 Detects NVIDIA and AMD GPUs and recommends the best docking engine.

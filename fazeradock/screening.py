@@ -1,3 +1,4 @@
+# Author: Yehor Franchuk (@MrEgorin) | FAZENA Project
 """Virtual screening controller for FazeraDock.
 
 Supports single docking, library screening (many ligands vs. one receptor),

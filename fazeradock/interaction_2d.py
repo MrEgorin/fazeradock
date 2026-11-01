@@ -1,3 +1,4 @@
+# Author: Yehor Franchuk (@MrEgorin) | FAZENA Project
 """
 FazeraDock — 2D Interaction Diagram Module
 ============================================

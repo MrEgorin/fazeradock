@@ -1,3 +1,4 @@
+# Author: Yehor Franchuk (@MrEgorin) | FAZENA Project
 """Ligand preparation module for FazeraDock.
 
 Converts ligand files (SDF, MOL2, MOL, PDB, SMI) to PDBQT format

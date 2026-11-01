@@ -1,3 +1,4 @@
+# Author: Yehor Franchuk (@MrEgorin) | FAZENA Project
 """Docking results parsing and interaction analysis for FazeraDock.
 
 Parses multi-model PDBQT files produced by AutoDock Vina, identifies

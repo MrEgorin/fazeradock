@@ -1,3 +1,4 @@
+# Author: Yehor Franchuk (@MrEgorin) | FAZENA Project
 """
 FazeraDock — PyMOL 3D Visualization Module
 ===========================================

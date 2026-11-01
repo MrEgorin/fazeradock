@@ -1,3 +1,4 @@
+# Author: Yehor Franchuk (@MrEgorin) | FAZENA Project
 """Project and settings management for FazeraDock.
 
 Provides the DockingProject dataclass and utilities for saving, loading,

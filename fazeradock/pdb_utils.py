@@ -1,3 +1,4 @@
+# Author: Yehor Franchuk (@MrEgorin) | FAZENA Project
 """PDB file parsing and manipulation utilities for FazeraDock.
 
 Provides functions to parse ATOM/HETATM records, extract chains, residues,

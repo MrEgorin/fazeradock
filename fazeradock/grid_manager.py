@@ -1,3 +1,4 @@
+# Author: Yehor Franchuk (@MrEgorin) | FAZENA Project
 """Grid box management for molecular docking in FazeraDock.
 
 Provides the :class:`GridBox` dataclass and functions for automatic grid

@@ -1,5 +1,8 @@
 # FazeraDock User Guide
 
+**Author:** Yehor Franchuk ([@MrEgorin](https://github.com/MrEgorin))
+**Project:** FAZENA (Era of Accessible Molecular Docking)
+
 ## Table of Contents
 
 1. [Overview](#overview)

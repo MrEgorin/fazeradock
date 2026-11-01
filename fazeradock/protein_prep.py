@@ -1,3 +1,4 @@
+# Author: Yehor Franchuk (@MrEgorin) | FAZENA Project
 """Protein preparation pipeline for FazeraDock.
 
 Cleans PDB files (water/HETATM removal, chain selection), adds hydrogens
